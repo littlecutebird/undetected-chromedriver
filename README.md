@@ -1,5 +1,23 @@
 # undetected_chromedriver #
 
+Use with profile that was already been opened by connect with remote debug address => we can use with GPMLogin or any anti-detect browser.
+
+```
+pip install git+https://www.github.com/ultrafunkamsterdam/undetected-chromedriver@master
+
+# some code to open browser with remote debug port to get remote_debug_address + driver_path
+
+remote_debug_address = ...
+driver_path = ...
+options = Options()
+options.debugger_address = REMOTE_DEBUG_ADDRESS
+driver = uc.Chrome(options = options, driver_executable_path=  driver_path)
+driver.get('https://fingerprint.com/products/bot-detection/')
+time.sleep(5) # https://github.com/ultrafunkamsterdam/undetected-chromedriver/issues/1017#issuecomment-1414034365 (execute_script still not detected with ver 115. ver 111 + 107 detected if call execute_script right after call get)
+driver.execute_script("console.log('hello world')")
+
+```
+
 https://github.com/ultrafunkamsterdam/undetected-chromedriver
 
 

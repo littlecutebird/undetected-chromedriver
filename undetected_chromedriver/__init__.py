@@ -431,19 +431,19 @@ class Chrome(selenium.webdriver.chrome.webdriver.WebDriver):
         if not desired_capabilities:
             desired_capabilities = options.to_capabilities()
 
-        if not use_subprocess:
-            self.browser_pid = start_detached(
-                options.binary_location, *options.arguments
-            )
-        else:
-            browser = subprocess.Popen(
-                [options.binary_location, *options.arguments],
-                stdin=subprocess.PIPE,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                close_fds=IS_POSIX,
-            )
-            self.browser_pid = browser.pid
+        # if not use_subprocess:
+        #     self.browser_pid = start_detached(
+        #         options.binary_location, *options.arguments
+        #     )
+        # else:
+        #     browser = subprocess.Popen(
+        #         [options.binary_location, *options.arguments],
+        #         stdin=subprocess.PIPE,
+        #         stdout=subprocess.PIPE,
+        #         stderr=subprocess.PIPE,
+        #         close_fds=IS_POSIX,
+        #     )
+        #     self.browser_pid = browser.pid
 
 
         service = selenium.webdriver.chromium.service.ChromiumService(
@@ -759,11 +759,11 @@ class Chrome(selenium.webdriver.chrome.webdriver.WebDriver):
             logger.debug("shutting down reactor")
         except AttributeError:
             pass
-        try:
-            os.kill(self.browser_pid, 15)
-            logger.debug("gracefully closed browser")
-        except Exception as e:  # noqa
-            pass
+        # try:
+        #     os.kill(self.browser_pid, 15)
+        #     logger.debug("gracefully closed browser")
+        # except Exception as e:  # noqa
+        #     pass
         if (
             hasattr(self, "keep_user_data_dir")
             and hasattr(self, "user_data_dir")
